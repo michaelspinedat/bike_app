@@ -15,14 +15,19 @@ import java.sql.SQLException;
 public class Main {
     
     public static void main(String[] args) {
-        
-        User user1 = new User("steven@gmail.com", "3148000279", "steven", "123");
+                
         UserJDBC userJDBC = new UserJDBC();
-        
-        try {
-            userJDBC.insert(user1);
+
+        try {                                    
+            User user = new User("steven@gmail.com", "122");
+            System.out.println(user);
+            User validatedUser  = userJDBC.validateUser(user);
+            if (validatedUser != null)
+                System.out.println(validatedUser);
+            else
+                System.out.println("Credenciales incorrectas");
         } catch (SQLException ex) {
-            System.out.println("Cédula duplicada");
+            System.out.println(ex);
         }
     }
 }

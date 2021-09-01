@@ -10,10 +10,10 @@ package models;
  * @author michael
  */
 public class User {
-    
+
     private String email;
     private String phone;
-    private String name;    
+    private String name;
     private String password;
 
     public User(String email, String phone, String name, String password) {
@@ -22,6 +22,11 @@ public class User {
         this.name = name;
         this.password = password;
     }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }        
 
     public String getEmail() {
         return email;
@@ -55,6 +60,10 @@ public class User {
         this.password = password;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return String.format("email: %s, nombre: %s, phone: %s, password: %s",
+                this.email, this.name, this.phone, this.password);
+    }
+
 }

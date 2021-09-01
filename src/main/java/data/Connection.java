@@ -7,9 +7,8 @@ package data;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +43,14 @@ public class Connection {
     public static void close(java.sql.Connection conn) {
         try {
             conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+
+    public static void close(ResultSet rs) {
+        try {
+            rs.close();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
