@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -16,11 +17,17 @@ public class Route {
 
     private int id;
     private User user;
-    private Date start;
-    private Date end;
+    private Timestamp start;
+    private Timestamp end;
     private String startingLocation;
     private String finalLocation;
     private double distance;
+
+    public Route(int id, Timestamp end) {
+        this.id = id;
+        this.end = end;
+    }
+        
 
     public Route(User user, String startingLocation,
             String finalLocation, double distance) {
@@ -30,7 +37,7 @@ public class Route {
         this.distance = distance;
     }
 
-    public Route(int id, User user, Date start, Date end,
+    public Route(int id, User user, Timestamp start, Timestamp end,
             String startingLocation, String finalLocation, double distance) {
         this.id = id;
         this.user = user;
@@ -57,19 +64,19 @@ public class Route {
         this.user = user;
     }
 
-    public Date getStart() {
+    public Timestamp getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 
