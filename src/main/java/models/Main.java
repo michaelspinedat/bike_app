@@ -5,8 +5,11 @@
  */
 package models;
 
+import data.RouteJDBC;
 import data.UserJDBC;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,18 +19,22 @@ public class Main {
     
     public static void main(String[] args) {
                 
+        User user = new User("steven@gmail.com", "123");
         UserJDBC userJDBC = new UserJDBC();
-
-        try {                                    
-            User user = new User("steven@gmail.com", "122");
-            System.out.println(user);
-            User validatedUser  = userJDBC.validateUser(user);
-            if (validatedUser != null)
-                System.out.println(validatedUser);
-            else
-                System.out.println("Credenciales incorrectas");
+        RouteJDBC routeJDBC = new RouteJDBC();
+        
+        try {
+            User validatedUser = userJDBC.validateUser(user);
+            if (validatedUser != null) {
+                System.out.println("Datos correctos");
+//                Route route = new Route(validatedUser, "Pereira", "Manizales", 95.7);
+//                routeJDBC.insert(route);
+                routeJDBC.getRoutes(validatedUser).forEach(r -> System.out.println(r));
+            }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error");
         }
+        
+        
     }
 }
