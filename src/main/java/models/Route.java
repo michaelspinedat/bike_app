@@ -6,8 +6,6 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.Date;
-
 
 /**
  *
@@ -22,16 +20,16 @@ public class Route {
     private String startingLocation;
     private String finalLocation;
     private double distance;
+    private String duration;
 
     public Route(int id, Timestamp end) {
         this.id = id;
         this.end = end;
     }
-        
 
     public Route(User user, String startingLocation,
             String finalLocation, double distance) {
-        this.user = user;        
+        this.user = user;
         this.startingLocation = startingLocation;
         this.finalLocation = finalLocation;
         this.distance = distance;
@@ -104,13 +102,28 @@ public class Route {
         this.distance = distance;
     }
 
+    public String getDuration() {
+        if (this.start == null || this.end == null)
+            return "";
+        
+        long milliseconds = this.end.getTime() - this.start.getTime();
+        int seconds = (int) milliseconds / 1000;
+        int hours = seconds / 3600;
+        int minutes = (seconds % 3600) / 60;
+        seconds = (seconds % 3600) % 60;
+        
+        return String.format("%d:%d:%d", hours, minutes, seconds);
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
-        return String.format("id: %s%n user: %s%n start: %s, end: %s, startingLocation: %s, finalLocation: %s, distance: %s", 
+        return String.format("id: %s%n user: %s%n start: %s, end: %s, startingLocation: %s, finalLocation: %s, distance: %s",
                 this.id, this.user, this.start, this.end, this.startingLocation, this.finalLocation,
                 this.distance);
     }
 
-    
-    
 }
