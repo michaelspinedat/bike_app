@@ -7,7 +7,11 @@ package views;
 
 import data.RouteJDBC;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Route;
@@ -28,8 +32,8 @@ public class JDUserPanel extends javax.swing.JDialog {
     public JDUserPanel(java.awt.Frame parent, boolean modal, User user) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(this.parent);
         this.parent = parent;
+        setLocationRelativeTo(this.parent);        
         this.user = user;
         showUserInfo();
     }
@@ -85,6 +89,8 @@ public class JDUserPanel extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPMRouteOptions = new javax.swing.JPopupMenu();
+        jMIFinalizar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLGreeting = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -93,10 +99,25 @@ public class JDUserPanel extends javax.swing.JDialog {
         jBAddRoute = new javax.swing.JButton();
         jLLogOut = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jMIFinalizar.setText("Finalizar ruta");
+        jMIFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIFinalizarActionPerformed(evt);
+            }
+        });
+        jPMRouteOptions.add(jMIFinalizar);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1003, 501));
+
+        jPanel1.setBackground(new java.awt.Color(18, 104, 123));
+
+        jLGreeting.setForeground(new java.awt.Color(255, 255, 255));
         jLGreeting.setText("HELLO ");
 
+        jTRoutes.setBackground(new java.awt.Color(204, 255, 255));
+        jTRoutes.setForeground(new java.awt.Color(0, 0, 0));
         jTRoutes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -113,10 +134,14 @@ public class JDUserPanel extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTRoutes.setComponentPopupMenu(jPMRouteOptions);
         jScrollPane1.setViewportView(jTRoutes);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CURRENT ROUTES");
 
+        jBAddRoute.setBackground(new java.awt.Color(34, 182, 75));
+        jBAddRoute.setForeground(new java.awt.Color(255, 255, 255));
         jBAddRoute.setText("Add route");
         jBAddRoute.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,6 +149,7 @@ public class JDUserPanel extends javax.swing.JDialog {
             }
         });
 
+        jLLogOut.setForeground(new java.awt.Color(255, 255, 255));
         jLLogOut.setText("Log out");
         jLLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -135,36 +161,36 @@ public class JDUserPanel extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(252, 252, 252)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(64, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBAddRoute)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(325, 325, 325)
                         .addComponent(jLLogOut)
-                        .addGap(29, 29, 29))))
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBAddRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(399, 399, 399))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLLogOut))
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLLogOut)
+                    .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
                 .addComponent(jBAddRoute)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
         );
@@ -194,12 +220,30 @@ public class JDUserPanel extends javax.swing.JDialog {
         new JDAddRoute(this.parent, true, this).setVisible(true);
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
+    private void jMIFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarActionPerformed
+        int row = jTRoutes.getSelectedRow();
+        int routeId = (int) jTRoutes.getValueAt(row, 0);        
+        Timestamp end = new Timestamp(new Date().getTime());        
+        Route route = new Route(routeId, end);
+        RouteJDBC routeJDBC = new RouteJDBC();
+        try {
+            routeJDBC.updateEndTime(route);
+            String msg = String.format("Has actualizado la ruta con id: %d%n", routeId);
+            JOptionPane.showMessageDialog(this, msg);
+            this.loadRoutes();
+        } catch (SQLException ex) {
+            Logger.getLogger(JDUserPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMIFinalizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAddRoute;
     private javax.swing.JLabel jLGreeting;
     private javax.swing.JLabel jLLogOut;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMIFinalizar;
+    private javax.swing.JPopupMenu jPMRouteOptions;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTRoutes;

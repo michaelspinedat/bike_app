@@ -7,6 +7,8 @@ package views;
 
 import data.UserJDBC;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import models.User;
 
@@ -16,12 +18,15 @@ import models.User;
  */
 public class JFLogIn extends javax.swing.JFrame {
 
+    private final Icon BIKE_IMAGE = new ImageIcon("src/main/java/images/bike.png");
+    
     /**
      * Creates new form JFLogIn
      */
     public JFLogIn() {
         initComponents();
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(this);        
+        jLImage.setIcon( BIKE_IMAGE);
     }
 
     /**
@@ -38,21 +43,34 @@ public class JFLogIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPPasword = new javax.swing.JPasswordField();
         jBLogIn = new javax.swing.JButton();
         jLSignIn = new javax.swing.JLabel();
+        jLClose = new javax.swing.JLabel();
+        jLImage = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
+        jPanel1.setBackground(new java.awt.Color(18, 104, 123));
+
+        jTEmail.setBackground(new java.awt.Color(152, 237, 237));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("LOG IN");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("LOG IN TO USE OUR APP");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("BikeApp");
 
-        jLabel4.setText("IMAGEN");
+        jPPasword.setBackground(new java.awt.Color(152, 237, 237));
 
+        jBLogIn.setBackground(new java.awt.Color(34, 182, 75));
+        jBLogIn.setForeground(new java.awt.Color(255, 255, 255));
         jBLogIn.setText("Log in");
         jBLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -60,12 +78,29 @@ public class JFLogIn extends javax.swing.JFrame {
             }
         });
 
-        jLSignIn.setText("Sign in");
+        jLSignIn.setForeground(new java.awt.Color(255, 255, 255));
+        jLSignIn.setText("SIGN IN");
         jLSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLSignInMouseClicked(evt);
             }
         });
+
+        jLClose.setForeground(new java.awt.Color(255, 255, 255));
+        jLClose.setText("Close");
+        jLClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLCloseMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText("Password");
+
+        jLabel5.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setText("Email");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,46 +110,58 @@ public class JFLogIn extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(128, 128, 128))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLClose)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(303, 303, 303)
+                        .addComponent(jLSignIn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jBLogIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                                .addComponent(jPPasword, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(161, 161, 161)
-                                .addComponent(jLSignIn)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTEmail)
+                                .addComponent(jPPasword)
+                                .addComponent(jBLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addComponent(jLImage, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLSignIn))
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2))
+                        .addGap(23, 23, 23)
+                        .addComponent(jLClose))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel4)))
-                .addGap(8, 8, 8)
-                .addComponent(jTEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jPPasword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jBLogIn)
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLSignIn))))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel2)
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPPasword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jBLogIn))
+                    .addComponent(jLImage, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,17 +178,30 @@ public class JFLogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLCloseMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLCloseMouseClicked
+
+    private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
+        this.clear();
+        new JDSignIn(this, true).setVisible(true);
+    }//GEN-LAST:event_jLSignInMouseClicked
+
     private void jBLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBLogInMouseClicked
         String email = jTEmail.getText();
         String password = String.valueOf(jPPasword.getPassword());
         User user = new User(email, password);
         UserJDBC userJDBC = new UserJDBC();
+        
+        if (email.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(this, "Faltan credenciales");
+            return;
+        }
 
         try {
             User validatedUser = userJDBC.validateUser(user);
             if (validatedUser != null) {
-                JOptionPane.showMessageDialog(this, "Bienvenido " + validatedUser.getName());
-                this.setVisible(false);
+                JOptionPane.showMessageDialog(this, "Bienvenido " + validatedUser.getName());                
                 this.clear();
                 new JDUserPanel(this, rootPaneCheckingEnabled, validatedUser).setVisible(true);
             } else {
@@ -156,21 +216,18 @@ public class JFLogIn extends javax.swing.JFrame {
         jTEmail.setText("");
         jPPasword.setText("");
     }
-    
-    private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
-        this.setVisible(false);
-        this.clear();
-        new JDSignIn(this, true).setVisible(true);
-    }//GEN-LAST:event_jLSignInMouseClicked
-    
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLogIn;
+    private javax.swing.JLabel jLClose;
+    private javax.swing.JLabel jLImage;
     private javax.swing.JLabel jLSignIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPPasword;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTEmail;
