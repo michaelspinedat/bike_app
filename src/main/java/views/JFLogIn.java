@@ -7,8 +7,6 @@ package views;
 
 import data.UserJDBC;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.User;
 
@@ -43,7 +41,7 @@ public class JFLogIn extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPPasword = new javax.swing.JPasswordField();
         jBLogIn = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLSignIn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +60,12 @@ public class JFLogIn extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Sign in");
+        jLSignIn.setText("Sign in");
+        jLSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLSignInMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,7 +89,7 @@ public class JFLogIn extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(161, 161, 161)
-                                .addComponent(jLabel5)))
+                                .addComponent(jLSignIn)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -95,7 +98,7 @@ public class JFLogIn extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel5))
+                    .addComponent(jLSignIn))
                 .addGap(59, 59, 59)
                 .addComponent(jLabel1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,6 +142,7 @@ public class JFLogIn extends javax.swing.JFrame {
             if (validatedUser != null) {
                 JOptionPane.showMessageDialog(this, "Bienvenido " + validatedUser.getName());
                 this.setVisible(false);
+                this.clear();
                 new JDUserPanel(this, rootPaneCheckingEnabled, validatedUser).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Error en las credenciales");
@@ -146,17 +150,27 @@ public class JFLogIn extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error en las credenciales");
         }
-
     }//GEN-LAST:event_jBLogInMouseClicked
+
+    private void clear () {
+        jTEmail.setText("");
+        jPPasword.setText("");
+    }
+    
+    private void jLSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLSignInMouseClicked
+        this.setVisible(false);
+        this.clear();
+        new JDSignIn(this, true).setVisible(true);
+    }//GEN-LAST:event_jLSignInMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLogIn;
+    private javax.swing.JLabel jLSignIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPPasword;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTEmail;

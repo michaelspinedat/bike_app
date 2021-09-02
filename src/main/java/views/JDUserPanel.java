@@ -8,8 +8,6 @@ package views;
 import data.RouteJDBC;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Route;
@@ -31,6 +29,7 @@ public class JDUserPanel extends javax.swing.JDialog {
     public JDUserPanel(java.awt.Frame parent, boolean modal, User user) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this.parent);
         this.parent = parent;
         this.user = user;
         showUserInfo();
@@ -90,7 +89,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         jTRoutes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLLogOut = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,10 +117,10 @@ public class JDUserPanel extends javax.swing.JDialog {
 
         jButton1.setText("Add route");
 
-        jLabel2.setText("Log out");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLLogOut.setText("Log out");
+        jLLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                jLLogOutMouseClicked(evt);
             }
         });
 
@@ -144,7 +143,7 @@ public class JDUserPanel extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
+                        .addComponent(jLLogOut)
                         .addGap(29, 29, 29))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,7 +152,7 @@ public class JDUserPanel extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLLogOut))
                 .addGap(37, 37, 37)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -177,17 +176,18 @@ public class JDUserPanel extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void jLLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLogOutMouseClicked
+        JOptionPane.showMessageDialog(this.parent, "See you!" + this.user.getName());
         this.setVisible(false);
         this.parent.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_jLLogOutMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLGreeting;
+    private javax.swing.JLabel jLLogOut;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTRoutes;
