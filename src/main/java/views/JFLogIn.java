@@ -5,11 +5,13 @@
  */
 package views;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import data.UserJDBC;
 import java.sql.SQLException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import models.ExceptionHandler;
 import models.User;
 
 /**
@@ -19,14 +21,14 @@ import models.User;
 public class JFLogIn extends javax.swing.JFrame {
 
     private final Icon BIKE_IMAGE = new ImageIcon("src/main/java/images/bike.png");
-    
+
     /**
      * Creates new form JFLogIn
      */
     public JFLogIn() {
         initComponents();
-        setLocationRelativeTo(this);        
-        jLImage.setIcon( BIKE_IMAGE);
+        setLocationRelativeTo(this);
+        jLImage.setIcon(BIKE_IMAGE);
     }
 
     /**
@@ -192,7 +194,7 @@ public class JFLogIn extends javax.swing.JFrame {
         String password = String.valueOf(jPPasword.getPassword());
         User user = new User(email, password);
         UserJDBC userJDBC = new UserJDBC();
-        
+
         if (email.equals("") || password.equals("")) {
             JOptionPane.showMessageDialog(this, "Faltan credenciales");
             return;
@@ -201,22 +203,26 @@ public class JFLogIn extends javax.swing.JFrame {
         try {
             User validatedUser = userJDBC.validateUser(user);
             if (validatedUser != null) {
-                JOptionPane.showMessageDialog(this, "Bienvenido " + validatedUser.getName());                
+                this.showMsg("Bienvenido " + validatedUser.getName());
                 this.clear();
                 new JDUserPanel(this, rootPaneCheckingEnabled, validatedUser).setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Error en las credenciales");
+                this.showMsg("Error en las credenciales");                
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error en las credenciales");
+            ExceptionHandler.showErrorMsg(this, ex);            
         }
     }//GEN-LAST:event_jBLogInMouseClicked
 
-    private void clear () {
+    private void clear() {
         jTEmail.setText("");
         jPPasword.setText("");
     }
-        
+
+    private void showMsg(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBLogIn;

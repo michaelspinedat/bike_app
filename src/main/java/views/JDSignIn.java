@@ -5,12 +5,15 @@
  */
 package views;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import data.UserJDBC;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
+import models.ExceptionHandler;
 import models.User;
+import models.exceptions.UserDataTooLongException;
 
 /**
  *
@@ -27,6 +30,7 @@ public class JDSignIn extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        generateToolTips();
         this.parent = parent;
     }
 
@@ -202,25 +206,38 @@ public class JDSignIn extends javax.swing.JDialog {
             return;
         }
 
-        User user = new User(email, phone, name, password);
-        UserJDBC userJDBC = new UserJDBC();
-
         try {
+            User user = new User(email, phone, name, password);
+            UserJDBC userJDBC = new UserJDBC();
             userJDBC.insert(user);
+            
             JOptionPane.showMessageDialog(this, "Usuario creado con éxito, inicia sesión");
+            
             this.setVisible(false);
             this.parent.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(JDSignIn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | UserDataTooLongException ex) {
+            ExceptionHandler.showErrorMsg(this, ex);
         }
 
     }//GEN-LAST:event_jBSignInMouseClicked
+
 
     private void jLHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLHomeMouseClicked
         this.setVisible(false);
         this.parent.setVisible(true);
     }//GEN-LAST:event_jLHomeMouseClicked
 
+
+    private void showMsg(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+
+    private void generateToolTips() {
+        jTEmail.setToolTipText("Máxima longitud: " + User.EMAIL_LENGTH);
+        jTName.setToolTipText("Máxima longitud: " + User.NAME_LENGTH);
+        jTPhone.setToolTipText("Máxima longitud: " + User.PHONE_LENGTH);
+        jPPassword.setToolTipText("Máxima longitud: " + User.PASSWORD_LENGTH);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSignIn;

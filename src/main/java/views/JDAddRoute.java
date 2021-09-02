@@ -7,10 +7,14 @@ package views;
 
 import data.RouteJDBC;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import models.ExceptionHandler;
 import models.Route;
+import models.exceptions.RouteDataTooLongException;
 
 /**
  *
@@ -191,7 +195,7 @@ public class JDAddRoute extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Faltan campos");
             return;
         }
-        
+
         double distance = 0;
         try {
             distance = Double.parseDouble(jTDistance.getText());
@@ -200,17 +204,17 @@ public class JDAddRoute extends javax.swing.JDialog {
             return;
         }
 
-        Route route = new Route(this.userPanel.getUser(),
-                startingLocation, finalLocation, distance);
-        RouteJDBC routeJDBC = new RouteJDBC();
-
         try {
+            Route route = new Route(this.userPanel.getUser(),
+                    startingLocation, finalLocation, distance);
+            
+            RouteJDBC routeJDBC = new RouteJDBC();
             routeJDBC.insert(route);
             JOptionPane.showMessageDialog(this, "Ruta creada con éxito");
             this.clear();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error creando la ruta");
-        }
+        } catch (SQLException | RouteDataTooLongException ex) {
+            ExceptionHandler.showErrorMsg(this, ex);
+        }         
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
     private void clear() {

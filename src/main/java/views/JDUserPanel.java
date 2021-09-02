@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import models.ExceptionHandler;
 import models.Route;
 import models.User;
 
@@ -33,7 +34,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.parent = parent;
-        setLocationRelativeTo(this.parent);        
+        setLocationRelativeTo(this.parent);
         this.user = user;
         showUserInfo();
     }
@@ -61,7 +62,7 @@ public class JDUserPanel extends javax.swing.JDialog {
 
             jTRoutes.setModel(model);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "ERROR");
+            ExceptionHandler.showErrorMsg(this, ex);
         }
     }
 
@@ -210,7 +211,7 @@ public class JDUserPanel extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLLogOutMouseClicked
-        JOptionPane.showMessageDialog(this.parent, "See you!" + this.user.getName());
+        JOptionPane.showMessageDialog(this.parent, "See you! " + this.user.getName());
         this.setVisible(false);
         this.parent.setVisible(true);
     }//GEN-LAST:event_jLLogOutMouseClicked
@@ -222,8 +223,22 @@ public class JDUserPanel extends javax.swing.JDialog {
 
     private void jMIFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarActionPerformed
         int row = jTRoutes.getSelectedRow();
-        int routeId = (int) jTRoutes.getValueAt(row, 0);        
-        Timestamp end = new Timestamp(new Date().getTime());        
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una ruta");
+            return;
+        }
+        String endStr = (String) jTRoutes.getValueAt(row, 6);
+        
+        int routeId = (int) jTRoutes.getValueAt(row, 0);
+        if (endStr != "") {
+            int input = JOptionPane.showConfirmDialog(this,
+                    "¿Desea actualizar la fecha de finalización de la ruta " + routeId,
+                    "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (input == -1 || input == 1 || input == 2)                
+                return;
+        }
+                                
+        Timestamp end = new Timestamp(new Date().getTime());
         Route route = new Route(routeId, end);
         RouteJDBC routeJDBC = new RouteJDBC();
         try {

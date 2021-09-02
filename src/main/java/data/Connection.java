@@ -20,39 +20,28 @@ public class Connection {
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "";
 
-    public static java.sql.Connection getConnection() {
-        java.sql.Connection conn = null;
-
-        try {
-            conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
-        } catch (SQLException ex) {
-            System.out.println("Error en la conexión");
-        }
+    public static java.sql.Connection getConnection() throws SQLException {
+        java.sql.Connection conn
+                = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 
         return conn;
     }
 
-    public static void close(PreparedStatement stmt) {
-        try {
+    public static void close(PreparedStatement stmt) throws SQLException {
+        if (stmt != null) {
             stmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         }
     }
 
-    public static void close(java.sql.Connection conn) {
-        try {
+    public static void close(java.sql.Connection conn) throws SQLException {
+        if (conn != null) {
             conn.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         }
     }
 
-    public static void close(ResultSet rs) {
-        try {
+    public static void close(ResultSet rs) throws SQLException {
+        if (rs != null) {
             rs.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         }
     }
 }
