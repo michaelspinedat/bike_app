@@ -18,10 +18,9 @@ import models.User;
  * @author michael
  */
 public class JDUserPanel extends javax.swing.JDialog {
-    
+
     private User user;
     private java.awt.Frame parent;
-    
 
     /**
      * Creates new form JDUserPanel
@@ -34,36 +33,41 @@ public class JDUserPanel extends javax.swing.JDialog {
         this.user = user;
         showUserInfo();
     }
-        
-    private void showUserInfo () {
+
+    private void showUserInfo() {
         jLGreeting.setText("HELLO " + this.user.getName());
         loadRoutes();
     }
-    
-    private void loadRoutes () {
-        RouteJDBC routeJDBC = new RouteJDBC();         
+
+    public void loadRoutes() {
+        this.clearRoutes();
+        RouteJDBC routeJDBC = new RouteJDBC();
         try {
             ArrayList<Route> routes = routeJDBC.getRoutes(this.user);
             DefaultTableModel model = (DefaultTableModel) jTRoutes.getModel();
-            
+
             routes.forEach(r -> {
-                Object [] row = {
+                Object[] row = {
                     r.getId(), r.getStart(), r.getEnd(),
                     r.getStartingLocation(), r.getFinalLocation(),
                     r.getDistance()
                 };
                 model.addRow(row);
             });
-            
+
             jTRoutes.setModel(model);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "ERROR");
         }
-        
-        
-        
     }
-    
+
+    private void clearRoutes() {
+        DefaultTableModel model = (DefaultTableModel) jTRoutes.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+    }
+
     public User getUser() {
         return user;
     }
@@ -71,8 +75,6 @@ public class JDUserPanel extends javax.swing.JDialog {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +90,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTRoutes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jBAddRoute = new javax.swing.JButton();
         jLLogOut = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,7 +117,12 @@ public class JDUserPanel extends javax.swing.JDialog {
 
         jLabel1.setText("CURRENT ROUTES");
 
-        jButton1.setText("Add route");
+        jBAddRoute.setText("Add route");
+        jBAddRoute.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBAddRouteMouseClicked(evt);
+            }
+        });
 
         jLLogOut.setText("Log out");
         jLLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,7 +145,7 @@ public class JDUserPanel extends javax.swing.JDialog {
                 .addGap(252, 252, 252)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jBAddRoute)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,7 +161,7 @@ public class JDUserPanel extends javax.swing.JDialog {
                     .addComponent(jLGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLLogOut))
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(jBAddRoute)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
@@ -181,10 +188,15 @@ public class JDUserPanel extends javax.swing.JDialog {
         this.setVisible(false);
         this.parent.setVisible(true);
     }//GEN-LAST:event_jLLogOutMouseClicked
-    
+
+    private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
+        this.setVisible(false);
+        new JDAddRoute(this.parent, true, this).setVisible(true);
+    }//GEN-LAST:event_jBAddRouteMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBAddRoute;
     private javax.swing.JLabel jLGreeting;
     private javax.swing.JLabel jLLogOut;
     private javax.swing.JLabel jLabel1;
