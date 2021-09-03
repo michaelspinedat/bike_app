@@ -8,6 +8,7 @@ package views;
 import data.RouteJDBC;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import models.ExceptionHandler;
 import models.Route;
 import models.User;
+import models.exceptions.RouteDataTooLongException;
 
 /**
  *
@@ -92,6 +94,7 @@ public class JDUserPanel extends javax.swing.JDialog {
 
         jPMRouteOptions = new javax.swing.JPopupMenu();
         jMIFinalizar = new javax.swing.JMenuItem();
+        jMIDelete = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLGreeting = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -100,13 +103,21 @@ public class JDUserPanel extends javax.swing.JDialog {
         jBAddRoute = new javax.swing.JButton();
         jLLogOut = new javax.swing.JLabel();
 
-        jMIFinalizar.setText("Finalizar ruta");
+        jMIFinalizar.setText("End route");
         jMIFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMIFinalizarActionPerformed(evt);
             }
         });
         jPMRouteOptions.add(jMIFinalizar);
+
+        jMIDelete.setText("Delete");
+        jMIDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIDeleteActionPerformed(evt);
+            }
+        });
+        jPMRouteOptions.add(jMIDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -214,6 +225,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this.parent, "See you! " + this.user.getName());
         this.setVisible(false);
         this.parent.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLLogOutMouseClicked
 
     private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
@@ -227,29 +239,48 @@ public class JDUserPanel extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecciona una ruta");
             return;
         }
-        String endStr = (String) jTRoutes.getValueAt(row, 6);
-        
-        int routeId = (int) jTRoutes.getValueAt(row, 0);
-        if (endStr != "") {
-            int input = JOptionPane.showConfirmDialog(this,
-                    "¿Desea actualizar la fecha de finalización de la ruta " + routeId,
-                    "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (input == -1 || input == 1 || input == 2)                
-                return;
+
+        this.finalizeRoute(row);
+    }//GEN-LAST:event_jMIFinalizarActionPerformed
+
+    private void jMIDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIDeleteActionPerformed
+        int row = jTRoutes.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona una ruta");
+            return;
         }
-                                
-        Timestamp end = new Timestamp(new Date().getTime());
-        Route route = new Route(routeId, end);
+        
+        this.deleteRoute(row);
+    }//GEN-LAST:event_jMIDeleteActionPerformed
+
+    private void finalizeRoute(int row) {
+
+        String startingLocation = (String) jTRoutes.getValueAt(row, 3);
+        Timestamp end = (Timestamp) jTRoutes.getValueAt(row, 1);
+        int routeId = (int) jTRoutes.getValueAt(row, 0);
+        Route route = null;
+
+        try {
+            route = new Route(routeId, startingLocation, end);
+        } catch (RouteDataTooLongException ex) {
+            ExceptionHandler.showErrorMsg(this, ex);
+        }
+
+        new JDEndRoute(this.parent, true, this, route).setVisible(true);
+    }
+
+    private void deleteRoute(int row) {
+        int routeId = (int) jTRoutes.getValueAt(row, 0);
+        Route route = new Route(routeId);
         RouteJDBC routeJDBC = new RouteJDBC();
         try {
-            routeJDBC.updateEndTime(route);
-            String msg = String.format("Has actualizado la ruta con id: %d%n", routeId);
-            JOptionPane.showMessageDialog(this, msg);
-            this.loadRoutes();
+            routeJDBC.delete(route);
         } catch (SQLException ex) {
-            Logger.getLogger(JDUserPanel.class.getName()).log(Level.SEVERE, null, ex);
+            ExceptionHandler.showErrorMsg(this, ex);
         }
-    }//GEN-LAST:event_jMIFinalizarActionPerformed
+        JOptionPane.showMessageDialog(this, "RUTA ELIMINADA");
+        this.loadRoutes();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -257,6 +288,7 @@ public class JDUserPanel extends javax.swing.JDialog {
     private javax.swing.JLabel jLGreeting;
     private javax.swing.JLabel jLLogOut;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMIDelete;
     private javax.swing.JMenuItem jMIFinalizar;
     private javax.swing.JPopupMenu jPMRouteOptions;
     private javax.swing.JPanel jPanel1;

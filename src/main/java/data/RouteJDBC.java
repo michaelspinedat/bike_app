@@ -22,11 +22,13 @@ public class RouteJDBC {
 
     private static final String SQL_SELECT = "SELECT * FROM route WHERE user=?";
 
-    private static final String SQL_INSERT = "INSERT INTO route(user, starting_location,"
-            + " final_location, distance) "
-            + "VALUES (?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO route(user, starting_location) "
+            + "VALUES (?, ?)";
 
-    private static final String SQL_UPDATE_END_TIME = "UPDATE route SET end=? WHERE id=?";
+    private static final String SQL_UPDATE = "UPDATE route SET end=?, final_location=?,"
+            + " distance=? WHERE id=?";
+    
+    private static final String SQL_DELETE = "DELETE FROM route WHERE id=?";
     
     private static final java.util.Calendar CALENDAR = Calendar.getInstance();
 
@@ -66,8 +68,6 @@ public class RouteJDBC {
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, route.getUser().getEmail());
             stmt.setString(2, route.getStartingLocation());
-            stmt.setString(3, route.getFinalLocation());
-            stmt.setDouble(4, route.getDistance());
             rows = stmt.executeUpdate();
         } finally {
             Connection.close(stmt);
@@ -77,15 +77,17 @@ public class RouteJDBC {
         return rows;
     }
 
-    public int updateEndTime(Route route) throws SQLException {
+    public int update(Route route) throws SQLException {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;   
         try {
             conn = Connection.getConnection();
-            stmt = conn.prepareStatement(SQL_UPDATE_END_TIME);
+            stmt = conn.prepareStatement(SQL_UPDATE);
             stmt.setTimestamp(1, route.getEnd(), CALENDAR);
-            stmt.setInt(2, route.getId());
+            stmt.setString(2, route.getFinalLocation());
+            stmt.setDouble(3, route.getDistance());
+            stmt.setInt(4, route.getId());
             rows = stmt.executeUpdate();
         } finally {
             Connection.close(stmt);
@@ -93,6 +95,23 @@ public class RouteJDBC {
         }
         
         return rows;
+    }
+    
+    public int delete (Route route) throws SQLException {
+        java.sql.Connection conn = null;
+        PreparedStatement stmt = null;
+        int rows = 0;   
+        try {
+            conn = Connection.getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setInt(1, route.getId());
+            rows = stmt.executeUpdate();
+        } finally {
+            Connection.close(stmt);
+            Connection.close(conn);
+        }
+        
+        return rows;    
     }
 
 }

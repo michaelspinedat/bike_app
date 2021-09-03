@@ -10,10 +10,18 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="jMIFinalizar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Finalizar ruta"/>
+            <Property name="text" type="java.lang.String" value="End route"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMIFinalizarActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jMIDelete">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMIDeleteActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>

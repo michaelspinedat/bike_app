@@ -225,6 +225,7 @@ public class JDSignIn extends javax.swing.JDialog {
     private void jLHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLHomeMouseClicked
         this.setVisible(false);
         this.parent.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLHomeMouseClicked
 
 
