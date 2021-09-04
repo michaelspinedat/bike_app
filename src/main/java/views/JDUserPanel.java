@@ -8,9 +8,7 @@ package views;
 import data.RouteJDBC;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -95,6 +93,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         jPMRouteOptions = new javax.swing.JPopupMenu();
         jMIFinalizar = new javax.swing.JMenuItem();
         jMIDelete = new javax.swing.JMenuItem();
+        jMINovelties = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLGreeting = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -118,6 +117,14 @@ public class JDUserPanel extends javax.swing.JDialog {
             }
         });
         jPMRouteOptions.add(jMIDelete);
+
+        jMINovelties.setText("Novelties");
+        jMINovelties.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMINoveltiesActionPerformed(evt);
+            }
+        });
+        jPMRouteOptions.add(jMINovelties);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -234,34 +241,54 @@ public class JDUserPanel extends javax.swing.JDialog {
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
     private void jMIFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarActionPerformed
-        int row = jTRoutes.getSelectedRow();
-        if (row < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona una ruta");
-            return;
-        }
-
-        this.finalizeRoute(row);
+        int row = this.getSelectedRow();
+        if (row >= 0)
+            this.finalizeRoute(row);
     }//GEN-LAST:event_jMIFinalizarActionPerformed
 
     private void jMIDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIDeleteActionPerformed
+        int row = this.getSelectedRow();
+
+        if (row >= 0)
+            this.deleteRoute(row);
+    }//GEN-LAST:event_jMIDeleteActionPerformed
+
+    private void jMINoveltiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMINoveltiesActionPerformed
+        this.showNovelties();
+    }//GEN-LAST:event_jMINoveltiesActionPerformed
+
+    private int getSelectedRow() {
         int row = jTRoutes.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Selecciona una ruta");
-            return;
         }
-        
-        this.deleteRoute(row);
-    }//GEN-LAST:event_jMIDeleteActionPerformed
+        return row;
+    }
+
+    private void showNovelties() {
+        int row = this.getSelectedRow();
+        if (row >= 0) {
+            int routeId = (int) jTRoutes.getValueAt(row, 0);
+            String startingLocation = (String) jTRoutes.getValueAt(row, 3);
+            Timestamp start = (Timestamp) jTRoutes.getValueAt(row, 1);
+            try {
+                new JDNovelties(this.parent, true,
+                        new Route(routeId, startingLocation, start)).setVisible(true);
+            } catch (RouteDataTooLongException ex) {
+                ExceptionHandler.showErrorMsg(parent, ex);
+            }
+        }
+    }
 
     private void finalizeRoute(int row) {
 
         String startingLocation = (String) jTRoutes.getValueAt(row, 3);
-        Timestamp end = (Timestamp) jTRoutes.getValueAt(row, 1);
+        Timestamp start = (Timestamp) jTRoutes.getValueAt(row, 1);
         int routeId = (int) jTRoutes.getValueAt(row, 0);
         Route route = null;
 
         try {
-            route = new Route(routeId, startingLocation, end);
+            route = new Route(routeId, startingLocation, start);
         } catch (RouteDataTooLongException ex) {
             ExceptionHandler.showErrorMsg(this, ex);
         }
@@ -290,6 +317,7 @@ public class JDUserPanel extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMIDelete;
     private javax.swing.JMenuItem jMIFinalizar;
+    private javax.swing.JMenuItem jMINovelties;
     private javax.swing.JPopupMenu jPMRouteOptions;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

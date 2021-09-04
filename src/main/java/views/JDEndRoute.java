@@ -9,10 +9,6 @@ import data.RouteJDBC;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import models.ExceptionHandler;
 import models.Route;
@@ -107,6 +103,8 @@ public class JDEndRoute extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Distance");
 
+        jBtnAddNolvety.setBackground(new java.awt.Color(34, 182, 75));
+        jBtnAddNolvety.setForeground(new java.awt.Color(255, 255, 255));
         jBtnAddNolvety.setText("Add novelty");
         jBtnAddNolvety.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -122,18 +120,18 @@ public class JDEndRoute extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(417, 417, 417)
                                 .addComponent(jLabel1))
                             .addComponent(jLabel7)
-                            .addComponent(jLMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jBtnAddNolvety, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTFinalLocation, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTDistance, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jBAddRoute, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))))
+                                .addComponent(jBAddRoute, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                            .addComponent(jLMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLBack)))
@@ -145,8 +143,8 @@ public class JDEndRoute extends javax.swing.JDialog {
                 .addGap(48, 48, 48)
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
-                .addComponent(jLMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jLMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFinalLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,7 +190,7 @@ public class JDEndRoute extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnAddNolvetyMouseClicked
 
     private void addNovelty () {
-        new JDNovelty(this.parent, true, route).setVisible(true);
+        new JDAddNovelty(this.parent, true, route).setVisible(true);
     }
     
     private void end() {

@@ -7,8 +7,6 @@ package views;
 
 import data.NoveltyJDBC;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.ExceptionHandler;
 import models.Novelty;
@@ -18,20 +16,20 @@ import models.Route;
  *
  * @author michael
  */
-public class JDNovelty extends javax.swing.JDialog {
+public class JDAddNovelty extends javax.swing.JDialog {
 
     private Route route;    
     
     /**
      * Creates new form JDNovelty
      */
-    public JDNovelty(java.awt.Frame parent, boolean modal ,Route route) {
+    public JDAddNovelty(java.awt.Frame parent, boolean modal ,Route route) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);        
         this.route = route;
         this.loadTypes();
-        this.jLRoute.setText(String.format("End the route with id: %d, started in: %s at %s",
+        this.jLRoute.setText(String.format("Route with id: %d, started in: %s at %s",
                 this.route.getId(), this.route.getStartingLocation(),
                 this.route.getStart()));
     }
@@ -55,19 +53,21 @@ public class JDNovelty extends javax.swing.JDialog {
         jLRoute = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTTitle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(18, 104, 123));
 
         jCBType.setBackground(new java.awt.Color(152, 237, 237));
+        jCBType.setToolTipText("Elige un tipo de novedad");
 
         jTADescription.setBackground(new java.awt.Color(152, 237, 237));
         jTADescription.setColumns(20);
         jTADescription.setRows(5);
         jScrollPane1.setViewportView(jTADescription);
 
-        jLabel3.setForeground(null);
         jLabel3.setText("NOVELTY");
 
         jBtnAddNovelty.setBackground(new java.awt.Color(34, 182, 75));
@@ -79,7 +79,6 @@ public class JDNovelty extends javax.swing.JDialog {
             }
         });
 
-        jLBack.setForeground(null);
         jLBack.setText("Back");
         jLBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -87,49 +86,61 @@ public class JDNovelty extends javax.swing.JDialog {
             }
         });
 
-        jLRoute.setForeground(null);
+        jLRoute.setForeground(new java.awt.Color(255, 255, 255));
         jLRoute.setText("Route: ");
 
         jLabel7.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
-        jLabel7.setForeground(null);
+        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
         jLabel7.setText("Type");
 
         jLabel8.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
-        jLabel8.setForeground(null);
+        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
         jLabel8.setText("Description");
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel9.setText("Title");
+
+        jTTitle.setBackground(new java.awt.Color(152, 237, 237));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 350, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jBtnAddNovelty, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCBType, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(310, 310, 310))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLBack)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(362, 362, 362)
-                        .addComponent(jLabel3))
-                    .addComponent(jLRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(49, 49, 49)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLRoute, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLBack)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtnAddNovelty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                            .addComponent(jLabel9)
+                            .addComponent(jTTitle)
+                            .addComponent(jCBType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(305, 305, 305)
+                        .addComponent(jLabel3)))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel3)
-                .addGap(19, 19, 19)
+                .addGap(18, 18, 18)
                 .addComponent(jLRoute)
-                .addGap(52, 52, 52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jTTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCBType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,11 +148,11 @@ public class JDNovelty extends javax.swing.JDialog {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jBtnAddNovelty)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addComponent(jLBack)
-                .addGap(62, 62, 62))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,14 +189,16 @@ public class JDNovelty extends javax.swing.JDialog {
     }
     
     private void clear () {
+        this.jTTitle.setText("");
         this.jCBType.setSelectedIndex(0);
         this.jTADescription.setText("");
     }
     
     private void addNovelty () {
+        String title = jTTitle.getText();
         String description = jTADescription.getText();
         String type = jCBType.getSelectedItem().toString();
-        Novelty novelty = new Novelty(this.route, type, description);
+        Novelty novelty = new Novelty(title, this.route, type, description);
         NoveltyJDBC noveltyJDBC = new NoveltyJDBC();
         
         try {
@@ -207,8 +220,10 @@ public class JDNovelty extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTADescription;
+    private javax.swing.JTextField jTTitle;
     // End of variables declaration//GEN-END:variables
 }

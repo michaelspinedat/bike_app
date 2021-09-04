@@ -54,20 +54,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="417" max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLMsg" alignment="0" min="-2" pref="405" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jBtnAddNolvety" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTFinalLocation" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTDistance" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jBAddRoute" alignment="0" pref="314" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jBtnAddNolvety" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTFinalLocation" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jTDistance" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBAddRoute" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLMsg" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -85,8 +83,8 @@
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                  <Component id="jLMsg" min="-2" pref="89" max="-2" attributes="0"/>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <Component id="jLMsg" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="96" max="32767" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTFinalLocation" min="-2" max="-2" attributes="0"/>
@@ -185,6 +183,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="jBtnAddNolvety">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="b6" red="22" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Add novelty"/>
           </Properties>
           <Events>
