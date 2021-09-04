@@ -26,6 +26,8 @@ public class JDEndRoute extends javax.swing.JDialog {
 
     private JDUserPanel userPanel;
     private Route route;
+    private java.awt.Frame parent;
+    
     //private final Icon MAP_IMAGE = new ImageIcon("src/main/java/images/map.jpg");
 
     /**
@@ -35,6 +37,7 @@ public class JDEndRoute extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.parent = parent;
         this.userPanel = userPanel;
         this.route = route;
         
@@ -61,6 +64,7 @@ public class JDEndRoute extends javax.swing.JDialog {
         jLBack = new javax.swing.JLabel();
         jLMsg = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jBtnAddNolvety = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(18, 104, 123));
@@ -103,6 +107,13 @@ public class JDEndRoute extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Distance");
 
+        jBtnAddNolvety.setText("Add novelty");
+        jBtnAddNolvety.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnAddNolvetyMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,12 +127,13 @@ public class JDEndRoute extends javax.swing.JDialog {
                                 .addGap(417, 417, 417)
                                 .addComponent(jLabel1))
                             .addComponent(jLabel7)
+                            .addComponent(jLMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jBtnAddNolvety, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTFinalLocation, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTDistance, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jBAddRoute, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
-                            .addComponent(jLMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jBAddRoute, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLBack)))
@@ -143,8 +155,10 @@ public class JDEndRoute extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jBtnAddNolvety)
+                .addGap(29, 29, 29)
                 .addComponent(jBAddRoute)
-                .addGap(100, 100, 100)
+                .addGap(47, 47, 47)
                 .addComponent(jLBack)
                 .addGap(28, 28, 28))
         );
@@ -173,6 +187,14 @@ public class JDEndRoute extends javax.swing.JDialog {
         this.endRoute();
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
+    private void jBtnAddNolvetyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddNolvetyMouseClicked
+        this.addNovelty();
+    }//GEN-LAST:event_jBtnAddNolvetyMouseClicked
+
+    private void addNovelty () {
+        new JDNovelty(this.parent, true, route).setVisible(true);
+    }
+    
     private void end() {
         this.clear();
         this.setVisible(false);
@@ -220,6 +242,7 @@ public class JDEndRoute extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAddRoute;
+    private javax.swing.JButton jBtnAddNolvety;
     private javax.swing.JLabel jLBack;
     private javax.swing.JLabel jLMsg;
     private javax.swing.JLabel jLabel1;
