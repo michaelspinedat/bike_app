@@ -20,7 +20,7 @@ public class JDNovelties extends javax.swing.JDialog {
 
     private java.awt.Frame parent;
     private Route route;
-    
+
     /**
      * Creates new form JDNovelties
      */
@@ -32,7 +32,7 @@ public class JDNovelties extends javax.swing.JDialog {
         this.route = route;
         this.jLTitle.setText(String.format("Route with id: %d, started in: %s at %s",
                 this.route.getId(), this.route.getStartingLocation(),
-                this.route.getStart() ));
+                this.route.getStart()));
         this.loadNovelties();
     }
 
@@ -81,6 +81,7 @@ public class JDNovelties extends javax.swing.JDialog {
 
         jTADescription.setBackground(new java.awt.Color(152, 237, 237));
         jTADescription.setColumns(20);
+        jTADescription.setLineWrap(true);
         jTADescription.setRows(5);
         jScrollPane1.setViewportView(jTADescription);
 
@@ -90,7 +91,6 @@ public class JDNovelties extends javax.swing.JDialog {
 
         jLType.setFont(new java.awt.Font("Liberation Sans", 2, 12)); // NOI18N
         jLType.setForeground(new java.awt.Color(204, 204, 204));
-        jLType.setText("Falla mecánica");
 
         jLBack.setForeground(new java.awt.Color(255, 255, 255));
         jLBack.setText("Back");
@@ -107,21 +107,23 @@ public class JDNovelties extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(130, 130, 130)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCBNovelties, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLType, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLTitle)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                            .addComponent(jCBNovelties, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jLBack)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                        .addComponent(jLBack))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLTitle)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,16 +135,16 @@ public class JDNovelties extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jCBNovelties, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLType))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLBack)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,11 +167,13 @@ public class JDNovelties extends javax.swing.JDialog {
 
     private void jCBNoveltiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBNoveltiesActionPerformed
         Novelty novelty = (Novelty) this.jCBNovelties.getSelectedItem();
-        this.jLType.setText(novelty.getType());
-        this.jTADescription.setText(novelty.getDescription());
+        if (novelty != null) {
+            this.jLType.setText(novelty.getType());
+            this.jTADescription.setText(novelty.getDescription());
+        }
     }//GEN-LAST:event_jCBNoveltiesActionPerformed
 
-    private void loadNovelties () {
+    private void loadNovelties() {
         NoveltyJDBC noveltyJDBC = new NoveltyJDBC();
         try {
             ArrayList<Novelty> novelties = noveltyJDBC.select(route.getId());
@@ -178,12 +182,12 @@ public class JDNovelties extends javax.swing.JDialog {
             ExceptionHandler.showErrorMsg(this, ex);
         }
     }
-    
-    private void end () {
+
+    private void end() {
         this.setVisible(false);
         this.dispose();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Novelty> jCBNovelties;

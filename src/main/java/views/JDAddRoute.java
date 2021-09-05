@@ -152,15 +152,20 @@ public class JDAddRoute extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBackMouseClicked
+        this.end();
+    }//GEN-LAST:event_jLBackMouseClicked
+
+    private void end() {
         this.clear();
         this.setVisible(false);
         this.userPanel.loadRoutes();
         this.userPanel.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLBackMouseClicked
+    }
 
     private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
         this.addRoute();
+        this.end();
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
     private void addRoute() {

@@ -57,6 +57,7 @@ public class JDAddNovelty extends javax.swing.JDialog {
         jTTitle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(18, 104, 123));
 

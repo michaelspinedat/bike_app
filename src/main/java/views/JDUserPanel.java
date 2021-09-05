@@ -5,6 +5,7 @@
  */
 package views;
 
+import data.NoveltyJDBC;
 import data.RouteJDBC;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -101,6 +102,16 @@ public class JDUserPanel extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jBAddRoute = new javax.swing.JButton();
         jLLogOut = new javax.swing.JLabel();
+
+        jPMRouteOptions.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPMRouteOptionsPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jMIFinalizar.setText("End route");
         jMIFinalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -254,8 +265,38 @@ public class JDUserPanel extends javax.swing.JDialog {
     }//GEN-LAST:event_jMIDeleteActionPerformed
 
     private void jMINoveltiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMINoveltiesActionPerformed
-        this.showNovelties();
+        int row = getSelectedRow();
+        if (row >= 0)
+            this.showNovelties(row);
     }//GEN-LAST:event_jMINoveltiesActionPerformed
+
+    private void jPMRouteOptionsPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPMRouteOptionsPopupMenuWillBecomeVisible
+        this.showMenuOptions();
+    }//GEN-LAST:event_jPMRouteOptionsPopupMenuWillBecomeVisible
+
+    private void showMenuOptions() {
+        this.jMIFinalizar.setVisible(true);
+        this.jMIDelete.setVisible(true);
+        this.jMINovelties.setVisible(true);
+
+        int row = jTRoutes.getSelectedRow();
+        if (row >= 0) {
+            Timestamp end = (Timestamp) jTRoutes.getValueAt(row, 2);
+            if (end != null) {
+                jMIFinalizar.setVisible(false);
+            }
+
+            int routeId = (int) jTRoutes.getValueAt(row, 0);
+            try {
+                int numberNovelties = new NoveltyJDBC().select(routeId).size();
+                if (numberNovelties == 0) {
+                    jMINovelties.setVisible(false);
+                }
+            } catch (SQLException ex) {
+                ExceptionHandler.showErrorMsg(this, ex);
+            }
+        }
+    }
 
     private int getSelectedRow() {
         int row = jTRoutes.getSelectedRow();
@@ -265,8 +306,7 @@ public class JDUserPanel extends javax.swing.JDialog {
         return row;
     }
 
-    private void showNovelties() {
-        int row = this.getSelectedRow();
+    private void showNovelties(int row) {
         if (row >= 0) {
             int routeId = (int) jTRoutes.getValueAt(row, 0);
             String startingLocation = (String) jTRoutes.getValueAt(row, 3);
