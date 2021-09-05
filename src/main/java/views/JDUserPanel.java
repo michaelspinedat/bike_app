@@ -10,8 +10,7 @@ import data.RouteJDBC;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.ExceptionHandler;
@@ -247,8 +246,13 @@ public class JDUserPanel extends javax.swing.JDialog {
     }//GEN-LAST:event_jLLogOutMouseClicked
 
     private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
-        this.setVisible(false);
-        new JDAddRoute(this.parent, true, this).setVisible(true);
+        Date today = new Date("2021/09/06");
+        if (today.before(Route.LIMIT_DATE)) {
+            this.setVisible(false);
+            new JDAddRoute(this.parent, true, this).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se puede crear rutas a partir de 06/09/2021");
+        }
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
     private void jMIFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIFinalizarActionPerformed

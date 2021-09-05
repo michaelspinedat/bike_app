@@ -18,15 +18,15 @@ import models.Route;
  */
 public class JDAddNovelty extends javax.swing.JDialog {
 
-    private Route route;    
-    
+    private Route route;
+
     /**
      * Creates new form JDNovelty
      */
-    public JDAddNovelty(java.awt.Frame parent, boolean modal ,Route route) {
+    public JDAddNovelty(java.awt.Frame parent, boolean modal, Route route) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);
         this.route = route;
         this.loadTypes();
         this.jLRoute.setText(String.format("Route with id: %d, started in: %s at %s",
@@ -69,6 +69,7 @@ public class JDAddNovelty extends javax.swing.JDialog {
         jTADescription.setRows(5);
         jScrollPane1.setViewportView(jTADescription);
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("NOVELTY");
 
         jBtnAddNovelty.setBackground(new java.awt.Color(34, 182, 75));
@@ -170,10 +171,11 @@ public class JDAddNovelty extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadTypes () {
-        Novelty.Type[] types =  Novelty.Type.values();
-        for (Novelty.Type t : types)
+    private void loadTypes() {
+        Novelty.Type[] types = Novelty.Type.values();
+        for (Novelty.Type t : types) {
             jCBType.addItem(t.toString());
+        }
     }
 
     private void jBtnAddNoveltyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddNoveltyMouseClicked
@@ -184,24 +186,29 @@ public class JDAddNovelty extends javax.swing.JDialog {
         this.end();
     }//GEN-LAST:event_jLBackMouseClicked
 
-    private void end () {        
+    private void end() {
         this.clear();
         this.dispose();
     }
-    
-    private void clear () {
+
+    private void clear() {
         this.jTTitle.setText("");
         this.jCBType.setSelectedIndex(0);
         this.jTADescription.setText("");
     }
-    
-    private void addNovelty () {
+
+    private void addNovelty() {
         String title = jTTitle.getText();
         String description = jTADescription.getText();
         String type = jCBType.getSelectedItem().toString();
         Novelty novelty = new Novelty(title, this.route, type, description);
         NoveltyJDBC noveltyJDBC = new NoveltyJDBC();
-        
+
+        if (title.equals("")) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar un título");
+            return;
+        }
+
         try {
             noveltyJDBC.insert(novelty);
             JOptionPane.showMessageDialog(this, "Se ha agregado la descripción");
@@ -209,9 +216,9 @@ public class JDAddNovelty extends javax.swing.JDialog {
         } catch (SQLException ex) {
             ExceptionHandler.showErrorMsg(this, ex);
         }
-        
+
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAddNovelty;

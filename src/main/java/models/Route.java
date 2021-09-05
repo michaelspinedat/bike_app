@@ -6,6 +6,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import models.exceptions.RouteDataTooLongException;
 
 /**
@@ -18,6 +19,8 @@ public class Route {
     public static final int FINAL_LOCATION_LENGTH = 60;
     public static final double DISTANCE_MAX_VALUE = Double.MAX_VALUE;
     public static final double DISTANCE_MIN_VALUE = 0d;
+    
+    public static final Date LIMIT_DATE = new Date("2021/09/06");
 
     private int id;
     private User user;
