@@ -211,7 +211,7 @@ public class JDAddNovelty extends javax.swing.JDialog {
 
         try {
             noveltyJDBC.insert(novelty);
-            JOptionPane.showMessageDialog(this, "Se ha agregado la descripción");
+            JOptionPane.showMessageDialog(this, "The novelty has been added ");
             this.clear();
         } catch (SQLException ex) {
             ExceptionHandler.showErrorMsg(this, ex);

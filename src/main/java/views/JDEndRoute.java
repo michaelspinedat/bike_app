@@ -233,7 +233,7 @@ public class JDEndRoute extends javax.swing.JDialog {
             RouteJDBC routeJDBC = new RouteJDBC();
             routeJDBC.update(route);
 
-            String msg = String.format("Has actualizado la ruta con id: %d%n",
+            String msg = String.format("You have finished the route with id: %d%n",
                     this.route.getId());
             JOptionPane.showMessageDialog(this, msg);
             this.userPanel.loadRoutes();

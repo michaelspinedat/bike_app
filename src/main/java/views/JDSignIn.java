@@ -211,7 +211,7 @@ public class JDSignIn extends javax.swing.JDialog {
             UserJDBC userJDBC = new UserJDBC();
             userJDBC.insert(user);
             
-            JOptionPane.showMessageDialog(this, "Usuario creado con éxito, inicia sesión");
+            JOptionPane.showMessageDialog(this, "User created successfully, log in");
             
             this.setVisible(false);
             this.parent.setVisible(true);

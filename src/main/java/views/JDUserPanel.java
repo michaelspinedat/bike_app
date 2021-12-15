@@ -246,7 +246,7 @@ public class JDUserPanel extends javax.swing.JDialog {
     }//GEN-LAST:event_jLLogOutMouseClicked
 
     private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
-        Date today = new Date("2021/09/06");
+        Date today = new Date();
         if (today.before(Route.LIMIT_DATE)) {
             this.setVisible(false);
             new JDAddRoute(this.parent, true, this).setVisible(true);

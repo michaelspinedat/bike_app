@@ -27,7 +27,7 @@ public class ExceptionHandler {
             showMsg(component, "Error en la información de un campo");
         } else if (e instanceof UserDataTooLongException) {
             showMsg(component, e.getMessage());
-        } else if (e instanceof SQLIntegrityConstraintViolationException) {
+        } else if (e instanceof SQLIntegrityConstraintViolationException) {            
             showMsg(component, "Ya existe alguien registrado con ese correo");
         } else if (e instanceof RouteDataTooLongException) {
             showMsg(component, e.getMessage());

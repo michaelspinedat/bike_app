@@ -164,8 +164,7 @@ public class JDAddRoute extends javax.swing.JDialog {
     }
 
     private void jBAddRouteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAddRouteMouseClicked
-        this.addRoute();
-        this.end();
+        this.addRoute();        
     }//GEN-LAST:event_jBAddRouteMouseClicked
 
     private void addRoute() {
@@ -174,19 +173,21 @@ public class JDAddRoute extends javax.swing.JDialog {
         if (startingLocation.equals("")) {
             JOptionPane.showMessageDialog(this, "La ubicación inicial está vacía");
             return;
+        } else {
+            try {
+                Route route = new Route(this.userPanel.getUser(),
+                        startingLocation);
+
+                RouteJDBC routeJDBC = new RouteJDBC();
+                routeJDBC.insert(route);
+                JOptionPane.showMessageDialog(this, "Route created successfully");
+                this.clear();
+                this.end();
+            } catch (SQLException | RouteDataTooLongException ex) {
+                ExceptionHandler.showErrorMsg(this, ex);
+            }
         }
 
-        try {
-            Route route = new Route(this.userPanel.getUser(),
-                    startingLocation);
-
-            RouteJDBC routeJDBC = new RouteJDBC();
-            routeJDBC.insert(route);
-            JOptionPane.showMessageDialog(this, "Ruta creada con éxito");
-            this.clear();
-        } catch (SQLException | RouteDataTooLongException ex) {
-            ExceptionHandler.showErrorMsg(this, ex);
-        }
     }
 
     private void clear() {

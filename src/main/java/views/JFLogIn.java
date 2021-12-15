@@ -203,7 +203,7 @@ public class JFLogIn extends javax.swing.JFrame {
         try {
             User validatedUser = userJDBC.validateUser(user);
             if (validatedUser != null) {
-                this.showMsg("Bienvenido " + validatedUser.getName());
+                this.showMsg("Welcome, " + validatedUser.getName());
                 this.clear();
                 new JDUserPanel(this, rootPaneCheckingEnabled, validatedUser).setVisible(true);
             } else {

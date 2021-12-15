@@ -20,7 +20,7 @@ public class Route {
     public static final double DISTANCE_MAX_VALUE = Double.MAX_VALUE;
     public static final double DISTANCE_MIN_VALUE = 0d;
     
-    public static final Date LIMIT_DATE = new Date("2021/09/06");
+    public static final Date LIMIT_DATE = new Date("2021/09/22");
 
     private int id;
     private User user;
